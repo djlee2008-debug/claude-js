@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>멜론 차트</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+    <link rel="stylesheet" href="css/melon.css">
+</head>
+<body>
+    <header class="header">
+        <div class="inner">
+            <div class="util">
+                <div><a href="#">멜론티켓</a><a href="#">멜론TV</a><a href="#">고객센터</a></div>
+                <div><a href="#">로그인</a><a href="#">회원가입</a><a href="#">이용권구매</a></div>
+            </div>
+            <div class="gnb">
+                <nav class="gnb-left"><a href="#" class="on">멜론차트</a><a href="#">최신음악</a><a href="#">장르음악</a></nav>
+                <a href="#" class="logo">Melon</a>
+                <nav class="gnb-right"><a href="#">멜론DJ</a><a href="#">스테이션</a><a href="#">마이뮤직</a></nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="inner">
+        <div class="breadcrumb">홈 › 멜론차트 › TOP100</div>
+        <h1 class="page-title">멜론차트</h1>
+
+        <div class="tabs">
+            <a href="#" class="on">TOP100</a>
+            <a href="#">HOT100</a>
+            <a href="#">일간</a>
+            <a href="#">주간</a>
+            <a href="#">월간</a>
+        </div>
+
+        <div class="toolbar">
+            <p class="count"><b id="count">0</b>곡이 검색되었습니다.</p>
+            <label class="search">
+                <input type="search" id="search" placeholder="곡명 / 아티스트 검색">
+            </label>
+        </div>
+
+        <ul class="chart" id="chart"></ul>
+        <p class="empty" id="empty" hidden>검색 결과가 없습니다.</p>
+
+        <button type="button" class="more" id="more">더보기 <span>⌄</span></button>
+    </main>
+
+    <footer class="footer">
+        <div class="inner">
+            <nav class="footer-nav"><a href="#">회사소개</a><a href="#">이용약관</a><a href="#"><b>개인정보처리방침</b></a><a href="#">고객센터</a></nav>
+            <p class="footer-info">이 페이지는 학습용 예제입니다. 차트 데이터와 앨범 이미지는 melon.json에서 불러옵니다.</p>
+        </div>
+    </footer>
+
+    <script src="js/melon.js"></script>
+</body>
+</html>

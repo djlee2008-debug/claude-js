@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>크레딧온</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="css/credit.css">
+</head>
+<body>
+    <div class="wrap">
+        <div class="util">
+            <a href="#">로그인</a><a href="#">회원가입</a>
+        </div>
+
+        <header class="header">
+            <a href="#" class="logo">
+                <span class="logo-mark">C</span>
+                <span class="logo-text">크레딧온</span>
+            </a>
+            <nav class="gnb">
+                <div class="menu-wrapper">
+                    <a href="#" class="gnb-menu">전체메뉴
+                        <span class="burger"><span></span><span></span><span></span></span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="#">신용점수 확인</a>
+                        <a href="#">마이페이지</a>
+                        <a href="#">로그인</a>
+                        <a href="#">회원가입</a>
+                    </div>
+                </div>
+                <div class="search-wrapper">
+                    <span class="search-icon"></span>
+                    <div class="search-popup">
+                        <div class="search-header">
+                            <select class="search-category">
+                                <option>전체</option>
+                                <option>상품</option>
+                                <option>뉴스</option>
+                                <option>가이드</option>
+                            </select>
+                        </div>
+                        <div class="search-input-box">
+                            <input type="text" class="search-input" placeholder="검색어를 입력해 주세요">
+                            <span class="search-submit"></span>
+                            <span class="search-filter"></span>
+                        </div>
+                        <div class="search-keywords">
+                            <div class="keywords-label">추천 검색어 :</div>
+                            <div class="keywords-list">
+                                <button type="button" class="keyword-tag">#자진금융</button>
+                                <button type="button" class="keyword-tag">#태산증금</button>
+                                <button type="button" class="keyword-tag">#기후위기</button>
+                                <button type="button" class="keyword-tag">#녹색채권</button>
+                                <button type="button" class="keyword-tag">#ESG투자</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!-- 카드 슬라이더 -->
+        <div class="slider">
+            <div class="slide slide-care">
+                <div class="swiper care-swiper">
+                    <div class="swiper-wrapper" id="care-banners"></div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+
+            <div class="slide slide-score">
+                <div class="slide-title">내 신용점수는?</div>
+
+                <div class="score-tabs">
+                    <button type="button" class="score-tab active" data-tab="loan">대출</button>
+                    <button type="button" class="score-tab" data-tab="card">카드</button>
+                    <button type="button" class="score-tab" data-tab="overdue">연체</button>
+                </div>
+
+                <div class="score-content">
+                    <div class="score-row tab-pane active" id="tab-loan">
+                        <button type="button" class="score-btn">
+                            <span class="slide-big" data-score-type="loan">850</span><span class="score-unit">점 ›</span>
+                        </button>
+                        <div class="ph">character</div>
+                    </div>
+                    <div class="score-row tab-pane" id="tab-card">
+                        <button type="button" class="score-btn">
+                            <span class="slide-big" data-score-type="card">720</span><span class="score-unit">점 ›</span>
+                        </button>
+                        <div class="ph">character</div>
+                    </div>
+                    <div class="score-row tab-pane" id="tab-overdue">
+                        <button type="button" class="score-btn">
+                            <span class="slide-big" data-score-type="overdue">950</span><span class="score-unit">점 ›</span>
+                        </button>
+                        <div class="ph">character</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide slide-white">
+                <div class="slide-title">내 소득그룹은?</div>
+                <div class="income-row">
+                    <span class="slide-big top">? <small>›</small></span>
+                    <div class="ph">coin icon</div>
+                </div>
+                <div class="slide-foot">소득 변동 여부를 확인하세요</div>
+            </div>
+
+            <div class="slide slide-white">
+                <div class="slide-title">내 카드 사용 패턴은?</div>
+                <span class="slide-big grow">? <small>›</small></span>
+                <div class="slide-foot flush">지난달 소비를 분석해 드려요</div>
+            </div>
+        </div>
+        <div class="dots"><span class="on"></span><span></span><span></span></div>
+
+        <!-- 보호 서비스 -->
+        <div class="protect">
+            <div class="box">
+                <span class="bubble">신용을 보호해주세요!</span>
+                <div class="sub">내 신용조회차단</div>
+                <div class="strong">해제 중 ›</div>
+                <div class="ph">shield</div>
+            </div>
+            <div class="box">
+                <span class="bubble">명의를 보호해주세요!</span>
+                <div class="sub">내 명의도용차단</div>
+                <div class="strong">해제 중 ›</div>
+                <div class="ph">people</div>
+            </div>
+            <div class="span2">
+                <div class="banner banner-blue">
+                    <div><div class="sub">개인정보 보호 서비스</div><div class="strong">이용권 번호 등록하기</div></div>
+                    <div class="ph">coupon</div>
+                </div>
+                <div class="banner banner-purple">
+                    <div><div class="sub">신용점수 영향없이</div><div class="strong">대출한도 알아보기</div></div>
+                    <div class="ph">percent</div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="sec-title">이런 서비스는 어떠세요?</h2>
+        <div class="services" id="services"></div>
+
+        <!-- 광고 (credit.js의 showAds로 표시 여부 결정) -->
+        <div class="ads" id="ads">
+            <div class="ad-loan">
+                <div>
+                    <div class="ad-title">한빛저축은행 개인신용대출</div>
+                    <div class="ad-desc">내 대출한도가 도착했습니다 (1)<br>지금 조회하기 ›</div>
+                    <div class="ad-legal">한빛저축은행 준법감시인 심의필 제2026-077호</div>
+                </div>
+                <div class="ph">bell</div>
+            </div>
+            <div class="ad-card">
+                <div><div class="sub">이번 달</div><div class="strong lg">혜택 좋은 카드는?</div></div>
+                <div class="ph">cards</div>
+            </div>
+        </div>
+
+        <h2 class="sec-title">모르면 손해, 놓치면 안되는 <em>혜택 정보</em></h2>
+        <div class="benefits" id="benefits"></div>
+
+        <h2 class="sec-title">세상에 이런 혜택이</h2>
+        <div class="perks" id="perks"></div>
+
+        <div class="notice">
+            <a href="#" class="notice-title">알려드려요 ›</a>
+            <a href="#" class="notice-link">신용변동알림 일시 중단 안내</a>
+            <span class="notice-date">2026.09.23</span>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-in">
+            <div>
+                <nav class="footer-nav">
+                    <a href="#">회사소개</a><a href="#">개인정보처리방침</a><a href="#">이용약관</a><a href="#">개인신용평점체계공시</a><a href="#">저작권 정책</a><a href="#">사이트맵</a>
+                </nav>
+                <div class="footer-info">
+                    (주)크레딧온 · 서울특별시 중구 세종대로 00 · 대표이사 홍길동<br>
+                    사업자등록번호 000-00-00000 · 통신판매업신고 2026-서울중구-0000<br>
+                    COPYRIGHT © CREDITON. ALL RIGHTS RESERVED.
+                </div>
+            </div>
+            <div class="cs">
+                <div class="cs-row"><span class="cs-label">고객센터</span><span class="cs-tel">1588-0000</span></div>
+                <div class="cs-mail">help@crediton.kr</div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="js/credit.js"></script>
+</body>
+</html>

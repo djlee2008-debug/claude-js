@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사진 목록</title>
+    <style>
+        /* ul을 5열 그리드로 배치 (10개 항목 → 2행 5열) */
+        #photo-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(5, 150px);
+            gap: 10px;
+        }
+
+        /* 이미지가 li 크기에 맞게 표시되도록 설정 */
+        #photo-list img {
+            display: block;
+            width: 150px;
+            height: 150px;
+            cursor: pointer;
+        }
+
+        /* 팝업 배경: 화면 전체를 덮는 반투명 레이어, 기본은 숨김 */
+        #popup {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* open 클래스가 붙으면 팝업을 화면 가운데에 표시 */
+        #popup.open {
+            display: flex;
+        }
+
+        /* 팝업 상자: 이미지와 제목, 닫기 버튼을 담는 흰색 박스 */
+        #popup .popup-box {
+            position: relative;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        /* 팝업 이미지: 썸네일(150px)의 2배 크기 */
+        #popup img {
+            display: block;
+            width: 300px;
+            height: 300px;
+        }
+
+        /* 팝업 제목: 이미지 너비에 맞춰 줄바꿈 */
+        #popup p {
+            width: 300px;
+            margin: 10px 0 0;
+        }
+
+        /* 닫기 버튼: 팝업 상자 오른쪽 위에 배치 */
+        #popup .popup-close {
+            position: absolute;
+            top: 4px;
+            right: 8px;
+            border: none;
+            background: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>사진 목록</h1>
+    <!-- 썸네일 목록이 출력될 영역 -->
+    <ul id="photo-list"></ul>
+
+    <!-- 이미지를 눌렀을 때 2배 크기로 보여줄 팝업 -->
+    <div id="popup">
+        <div class="popup-box">
+            <button type="button" class="popup-close" aria-label="닫기">&times;</button>
+            <img src="" alt="">
+            <p></p>
+        </div>
+    </div>
+
+    <script>
+        // API 기본 주소 (상수로 분리해 다른 엔드포인트에도 재사용 가능)
+        const API_URL = 'https://jsonplaceholder.typicode.com';
+
+        // 화면에 출력할 사진 개수 (2행 × 5열 = 10개)
+        const ROWS = 2;
+        const COLS = 5;
+
+        // 재사용 가능한 GET 요청 함수
+        // - url을 받아 fetch로 요청하고, JSON으로 변환한 결과를 반환
+        // - 응답 상태가 실패(response.ok === false)면 에러를 던짐
+        async function fetchData(url) {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`요청 실패: ${response.status}`);
+            }
+            return await response.json();
+        }
+
+        // 데이터 배열을 ul 요소에 li 목록으로 출력하는 함수
+        // - target: 출력할 ul 요소
+        // - items: 출력할 데이터 배열
+        // - createContent: 각 항목으로 li 안에 넣을 요소를 만드는 함수 (출력 형태를 바꿔서 재사용 가능)
+        function renderList(target, items, createContent) {
+            target.innerHTML = '';
+            items.forEach(item => {
+                const li = document.createElement('li');
+                li.appendChild(createContent(item));
+                target.appendChild(li);
+            });
+        }
+
+        // 사진 데이터 하나로 썸네일 img 요소를 만드는 함수
+        // - src에 thumbnailUrl, alt에 사진 제목을 지정
+        function createThumbnail(photo) {
+            const img = document.createElement('img');
+            img.src = photo.thumbnailUrl;
+            img.alt = photo.title;
+            img.addEventListener('click', () => openPopup(photo));
+            return img;
+        }
+
+        // 팝업을 여는 함수
+        // - 원본 이미지(url, 600px)를 300px로 줄여 표시해 2배로 키워도 흐려지지 않게 함
+        // - 사진 제목을 이미지 아래에 표시
+        function openPopup(photo) {
+            const popup = document.querySelector('#popup');
+            const img = popup.querySelector('img');
+            img.src = photo.url;
+            img.alt = photo.title;
+            popup.querySelector('p').textContent = photo.title;
+            popup.classList.add('open');
+        }
+
+        // 팝업을 닫는 함수
+        function closePopup() {
+            document.querySelector('#popup').classList.remove('open');
+        }
+
+        // 팝업 닫기 이벤트 등록
+        // - 닫기 버튼(×)을 누르거나, 팝업 바깥의 어두운 배경을 누르면 닫힘
+        // - 키보드 Esc 키를 눌러도 닫힘
+        document.querySelector('#popup').addEventListener('click', event => {
+            if (event.target.id === 'popup' || event.target.classList.contains('popup-close')) {
+                closePopup();
+            }
+        });
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape') {
+                closePopup();
+            }
+        });
+
+        // 사진 목록을 불러와 2행 5열로 화면에 출력하는 메인 함수
+        // - _limit 쿼리로 필요한 개수(10개)만 요청해 5000개 전체를 받지 않도록 함
+        // - try/catch로 네트워크 오류나 응답 오류를 처리하고 화면에 메시지 표시
+        async function showPhotos() {
+            const photoList = document.querySelector('#photo-list');
+            try {
+                const photos = await fetchData(`${API_URL}/photos?_limit=${ROWS * COLS}`);
+                renderList(photoList, photos, createThumbnail);
+            } catch (error) {
+                photoList.innerHTML = `<li>데이터를 불러오지 못했습니다. (${error.message})</li>`;
+            }
+        }
+
+        // 페이지가 로드되면 사진 목록 출력 실행
+        showPhotos();
+    </script>
+</body>
+</html>
